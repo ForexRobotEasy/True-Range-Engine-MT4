@@ -1,0 +1,175 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                 True Range Engine MT4           |
+//|                                     forexroboteasy.com           |
+//|                                    Forex Robot Easy Team         |
+//+------------------------------------------------------------------+
+
+// Global variables
+input double LotSize = 0.01;  // Initial lot size
+input double GridSize = 10;   // Size of the order grid
+input double TakeProfit = 100; // Take profit level
+input double StopLoss = 50;    // Stop loss level
+
+//+------------------------------------------------------------------+
+//|                        Expert initialization function           |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Enable night scalping
+    if (!TimeFrameSet(PERIOD_M5))
+    {
+        Print('Failed to set the timeframe!');
+        return INIT_FAILED;
+    }
+
+    // Load machine learning-based indicators
+    if (!IndicatorSetString(INDICATOR_SHORTNAME, 'MachineLearningIndicator'))
+    {
+        Print('Failed to load the machine learning indicator!');
+        return INIT_FAILED;
+    }
+
+    // Initialize the order grid
+    if (!InitializeOrderGrid())
+    {
+        Print('Failed to initialize the order grid!');
+        return INIT_FAILED;
+    }
+
+    // Set active order feature
+    if (!SetActiveOrderFeature())
+    {
+        Print('Failed to set the active order feature!');
+        return INIT_FAILED;
+    }
+
+    return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//|                     Expert deinitialization function              |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Deinitialize the order grid
+    DeinitializeOrderGrid();
+}
+
+//+------------------------------------------------------------------+
+//|                      Expert tick function                         |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Check if it is night session
+    if (!IsNightSession())
+        return;
+
+    // Calculate the true range
+    double trueRange = CalculateTrueRange();
+
+    // Adjust the order grid
+    AdjustOrderGrid(trueRange);
+
+    // Open positions based on machine learning indicators
+    if (MachineLearningIndicator() > 0)
+    {
+        // Open buy position
+        if (OpenBuyPosition())
+            Print('Buy position opened!');
+    }
+    else if (MachineLearningIndicator() < 0)
+    {
+        // Open sell position
+        if (OpenSellPosition())
+            Print('Sell position opened!');
+    }
+
+    // Close positions when price reaches take profit or stop loss levels
+    ClosePositions();
+}
+
+//+------------------------------------------------------------------+
+//|                        Initialize the order grid                  |
+//+------------------------------------------------------------------+
+bool InitializeOrderGrid()
+{
+    // Implementation logic for initializing the order grid
+
+    return true;
+}
+
+//+------------------------------------------------------------------+
+//|                      Deinitialize the order grid                  |
+//+------------------------------------------------------------------+
+void DeinitializeOrderGrid()
+{
+    // Implementation logic for deinitializing the order grid
+}
+
+//+------------------------------------------------------------------+
+//|                   Set active order feature                         |
+//+------------------------------------------------------------------+
+bool SetActiveOrderFeature()
+{
+    // Implementation logic for setting the active order feature
+
+    return true;
+}
+
+//+------------------------------------------------------------------+
+//|                      Check if it is night session                  |
+//+------------------------------------------------------------------+
+bool IsNightSession()
+{
+    // Implementation logic for checking if it is night session
+
+    return true;
+}
+
+//+------------------------------------------------------------------+
+//|                     Calculate the true range                      |
+//+------------------------------------------------------------------+
+double CalculateTrueRange()
+{
+    // Implementation logic for calculating the true range
+
+    return 0;
+}
+
+//+------------------------------------------------------------------+
+//|                  Adjust the order grid based on true range         |
+//+------------------------------------------------------------------+
+void AdjustOrderGrid(const double trueRange)
+{
+    // Implementation logic for adjusting the order grid
+}
+
+//+------------------------------------------------------------------+
+//|                          Open buy position                         |
+//+------------------------------------------------------------------+
+bool OpenBuyPosition()
+{
+    // Implementation logic for opening a buy position
+
+    return true;
+}
+
+//+------------------------------------------------------------------+
+//|                          Open sell position                        |
+//+------------------------------------------------------------------+
+bool OpenSellPosition()
+{
+    // Implementation logic for opening a sell position
+
+    return true;
+}
+
+//+------------------------------------------------------------------+
+//|               Close positions when reached TP/SL levels            |
+//+------------------------------------------------------------------+
+void ClosePositions()
+{
+    // Implementation logic for closing positions
+
+}
